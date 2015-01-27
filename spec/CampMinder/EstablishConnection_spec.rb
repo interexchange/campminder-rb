@@ -101,5 +101,17 @@ describe CampMinder::EstablishConnection do
       expect(@establish_connection.connect).to be true
       expect(@establish_connection.connection_failure_reason).to be nil
     end
+
+    it 'uses a proxy url if CAMPMINDER_PROXY_URL is set' do
+      CampMinder::PROXY_URL = 'http://proxy.interexchange.io:3128'
+      uri = URI.parse(CampMinder::WEB_SERVICE_URL)
+      proxy_uri = URI.parse(CampMinder::PROXY_URL)
+
+      expect(Net::HTTP).to receive(:new).with(uri.host, uri.port, proxy_uri.host, proxy_uri.port, proxy_uri.user, proxy_uri.password).and_call_original
+
+      VCR.use_cassette "EstablishConnectionProxySuccess", erb: true do
+        @establish_connection.connect
+      end
+    end
   end
 end

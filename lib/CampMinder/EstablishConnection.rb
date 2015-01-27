@@ -1,3 +1,6 @@
+require 'uri'
+require 'net/http'
+
 class CampMinder::EstablishConnection
   include Virtus.model
   include ActiveModel::Serializers::Xml
@@ -25,7 +28,15 @@ class CampMinder::EstablishConnection
 
   def connect
     uri = URI.parse(CampMinder::WEB_SERVICE_URL)
-    http = Net::HTTP.new(uri.host, uri.port)
+    http = nil
+
+    if CampMinder::PROXY_URL.present?
+      proxy_uri = URI.parse(CampMinder::PROXY_URL)
+      http = Net::HTTP.new(uri.host, uri.port, proxy_uri.host, proxy_uri.port, proxy_uri.user, proxy_uri.password)
+    else
+      http = Net::HTTP.new(uri.host, uri.port)
+    end
+
     http.use_ssl = true
     request = Net::HTTP::Post.new(uri.request_uri)
     request.set_form_data({'fn' => 'EstablishConnection', 'businessPartnerID' => CampMinder::BUSINESS_PARTNER_ID, 'signedObject' => signed_object})
