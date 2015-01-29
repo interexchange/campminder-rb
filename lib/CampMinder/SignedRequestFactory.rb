@@ -1,9 +1,5 @@
-require 'base64'
-
 class CampMinder::SignedRequestFactory
   include Virtus.model
-
-  PAD_LENGTH = 4
 
   attribute :secret_code, String, writer: :private, reader: :private
 
@@ -17,15 +13,15 @@ class CampMinder::SignedRequestFactory
   end
 
   def get_payload(signed_payload)
-    Base64.urlsafe_decode64(signed_payload.split(".").last)
+    CampMinder::Base64.urlsafe_decode64(signed_payload.split(".").last)
   end
 
   def encode_signature(encoded_payload)
-    Base64.urlsafe_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new("sha256"), @secret_code, encoded_payload)).strip()
+    CampMinder::Base64.urlsafe_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new("sha256"), @secret_code, encoded_payload)).strip()
   end
 
   def sign_payload(payload)
-    encoded_payload = Base64.urlsafe_encode64(payload)
+    encoded_payload = CampMinder::Base64.urlsafe_encode64(payload)
     encoded_signature = encode_signature(encoded_payload)
     "#{encoded_signature}.#{encoded_payload}"
   end

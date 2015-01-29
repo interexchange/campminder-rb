@@ -27,7 +27,7 @@ describe CampMinder::SignedRequestFactory do
   describe '#is_valid_request?' do
     before do
       @payload = "Hello World"
-      @encoded_payload = Base64.urlsafe_encode64(@payload)
+      @encoded_payload = CampMinder::Base64.urlsafe_encode64(@payload)
     end
 
     it 'returns true if payload signed with SECRET_CODE' do
@@ -47,7 +47,7 @@ describe CampMinder::SignedRequestFactory do
   describe '#get_payload' do
     before do
       @payload = "Hello World"
-      @encoded_payload = Base64.urlsafe_encode64(@payload)
+      @encoded_payload = CampMinder::Base64.urlsafe_encode64(@payload)
       @encoded_signature = "ABC"
       @signed_payload = "#{@encoded_signature}.#{@encoded_payload}"
     end
