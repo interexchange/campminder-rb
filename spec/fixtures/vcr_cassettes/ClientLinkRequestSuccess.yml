@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://app.campminder.eg/
+    uri: <%= CampMinder::WEB_SERVICE_URL %>
     body:
       string: fn=EstablishConnection&businessPartnerID=abc123&signedObject=QIJeOopXpeoqBNL2IhBaJ7aetAxCJVtedKBVW640V9I.PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHJlc3Bv%0AbnNlT2JqZWN0PgogIDxjbGllbnRJRD5DLTEyMzwvY2xpZW50SUQ-CiAgPHBl%0AcnNvbklEPlAtMTIzPC9wZXJzb25JRD4KICA8dG9rZW4-REVGLTQ1NjwvdG9r%0AZW4-CiAgPHBhcnRuZXJDbGllbnRJRD5UT0RPPC9wYXJ0bmVyQ2xpZW50SUQ-%0ACjwvcmVzcG9uc2VPYmplY3Q-Cg%0A
   response:
@@ -10,7 +10,7 @@ http_interactions:
       encoding: UTF-8
       string: '<?xml version="1.0" encoding="UTF-8"?>
           <responseObject version="1">
-            <Success>True</Success>
+            <status>True</status>
           </responseObject>'
   recorded_at: Mon, 26 Jan 2015 19:44:51 GMT
 recorded_with: VCR 2.9.3

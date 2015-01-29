@@ -37,7 +37,7 @@ describe 'CampMinderHandler' do
       allow_any_instance_of(DummyCampMinderHandlerController).to receive(:partner_client_id).and_return(@partner_client_id)
       allow_any_instance_of(DummyCampMinderHandlerController).to receive(:store_partner_client).with(@partner_client_id, @client_id, @person_id, @token, @connection_status).and_return(true)
 
-      VCR.use_cassette("ClientLinkRequestSuccess") do
+      VCR.use_cassette 'ClientLinkRequestSuccess', erb: true do
         post '/camp_minder_handler', fn: 'ClientLinkRequest', username: @username, password: @password, signedObject: @success_signed_object, token: @token, clientID: @client_id, personID: @person_id
       end
 
@@ -57,7 +57,7 @@ describe 'CampMinderHandler' do
       allow_any_instance_of(DummyCampMinderHandlerController).to receive(:partner_client_id).and_return(@partner_client_id)
       allow_any_instance_of(DummyCampMinderHandlerController).to receive(:store_partner_client).and_return(true)
 
-      VCR.use_cassette("ClientLinkRequestEstablishConnectionFailure") do
+      VCR.use_cassette 'ClientLinkRequestEstablishConnectionFailure', erb: true do
         post '/camp_minder_handler', fn: 'ClientLinkRequest', username: @username, password: @password, signedObject: @success_signed_object, token: @token, clientID: @client_id, personID: @person_id
       end
 
@@ -89,7 +89,7 @@ describe 'CampMinderHandler' do
       allow_any_instance_of(DummyCampMinderHandlerController).to receive(:partner_client_id).and_return(@partner_client_id)
       allow_any_instance_of(DummyCampMinderHandlerController).to receive(:store_partner_client).and_return(false)
 
-      VCR.use_cassette("ClientLinkRequestSuccess") do
+      VCR.use_cassette 'ClientLinkRequestSuccess', erb: true do
         post '/camp_minder_handler', fn: 'ClientLinkRequest', username: @username, password: @password, signedObject: @success_signed_object, token: @token, clientID: @client_id, personID: @person_id
       end
 
@@ -101,7 +101,7 @@ describe 'CampMinderHandler' do
       allow_any_instance_of(DummyCampMinderHandlerController).to receive(:store_partner_client).and_return(true)
 
       expect do
-        VCR.use_cassette("ClientLinkRequestSuccess") do
+      VCR.use_cassette 'ClientLinkRequestSuccess', erb: true do
           post '/camp_minder_handler', fn: 'ClientLinkRequest', username: @username, password: @password, signedObject: @success_signed_object, token: @token, clientID: @client_id, personID: @person_id
         end
       end.to raise_error NotImplementedError
@@ -112,7 +112,7 @@ describe 'CampMinderHandler' do
       allow_any_instance_of(DummyCampMinderHandlerController).to receive(:store_partner_client).and_return(true)
 
       expect do
-        VCR.use_cassette("ClientLinkRequestSuccess") do
+        VCR.use_cassette 'ClientLinkRequestSuccess', erb: true do
           post '/camp_minder_handler', fn: 'ClientLinkRequest', username: @username, password: @password, signedObject: @success_signed_object, token: @token, clientID: @client_id, personID: @person_id
         end
       end.to raise_error NotImplementedError
@@ -122,7 +122,7 @@ describe 'CampMinderHandler' do
       allow_any_instance_of(DummyCampMinderHandlerController).to receive(:valid_username_password?).and_return(true)
 
       expect do
-        VCR.use_cassette("ClientLinkRequestSuccess") do
+        VCR.use_cassette 'ClientLinkRequestSuccess', erb: true do
           post '/camp_minder_handler', fn: 'ClientLinkRequest', username: @username, password: @password, signedObject: @success_signed_object, token: @token, clientID: @client_id, personID: @person_id
         end
       end.to raise_error NotImplementedError

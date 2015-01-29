@@ -1,0 +1,18 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: <%= CampMinder::WEB_SERVICE_URL %>
+    body:
+      string: fn=EstablishConnection&businessPartnerID=7&signedObject=aSjN8E9P3sTUuE2Id7WbwtXNoxo8BNfh62Ysb4veFFQ.PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHJlc3Bv%0AbnNlT2JqZWN0PgogIDxjbGllbnRJRD5DLTEyMzwvY2xpZW50SUQ-CiAgPHBl%0AcnNvbklEPlAtMTIzPC9wZXJzb25JRD4KICA8dG9rZW4-REVGLTQ1NjwvdG9r%0AZW4-CiAgPHBhcnRuZXJDbGllbnRJRD5JRVgtQy0xMjM8L3BhcnRuZXJDbGll%0AbnRJRD4KPC9yZXNwb25zZU9iamVjdD4K%0A
+  response:
+    status:
+      code: 200
+      message: OK
+    body:
+      encoding: ASCII-8BIT
+      string: '<?xml version="1.0" encoding="UTF-8"?>
+<responseObject version="1">
+  <status>True</status>
+</responseObject>'
+  recorded_at: Thu, 29 Jan 2015 17:31:43 GMT
