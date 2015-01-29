@@ -19,7 +19,7 @@ describe CampMinder::EstablishConnection do
 }
 
     @signed_request_factory = CampMinder::SignedRequestFactory.new(CampMinder::SECRET_CODE)
-    @encoded_payload = @signed_request_factory.prepare_encoded_base64(Base64.strict_encode64(@payload))
+    @encoded_payload = Base64.urlsafe_encode64(@payload)
     @encoded_signature = @signed_request_factory.encode_signature(@encoded_payload)
     @signed_payload = "#{@encoded_signature}.#{@encoded_payload}"
 
