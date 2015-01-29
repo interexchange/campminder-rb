@@ -13,10 +13,10 @@ describe 'CampMinderHandler' do
 
       @signed_request_factory = CampMinder::SignedRequestFactory.new(CampMinder::SECRET_CODE)
 
-      success_base64_time = Base64.encode64((Time.now.utc + 10).iso8601.to_s)
+      success_base64_time = Base64.strict_encode64((Time.now.utc + 10).iso8601.to_s)
       @success_signed_object = "#{@signed_request_factory.encode_signature(success_base64_time)}.#{success_base64_time}"
 
-      failure_base64_time = Base64.encode64((Time.now.utc - 10).iso8601.to_s)
+      failure_base64_time = Base64.strict_encode64((Time.now.utc - 10).iso8601.to_s)
       @failure_signed_object = "#{@signed_request_factory.encode_signature(failure_base64_time)}.#{failure_base64_time}"
 
       @username = 'johndoe'
