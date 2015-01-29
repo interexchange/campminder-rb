@@ -41,14 +41,14 @@ describe 'CampMinderHandler' do
         post '/camp_minder_handler', fn: 'ClientLinkRequest', username: @username, password: @password, signedObject: @success_signed_object, token: @token, clientID: @client_id, personID: @person_id
       end
 
-      expect(last_response.status).to eq 304
+      expect(last_response.status).to eq 302
       expect(last_response.location).to eq "#{CampMinder::REDIRECTION_URL}?bpid=#{CampMinder::BUSINESS_PARTNER_ID}&success=true&reason="
     end
 
     it 'redirects with failure on invalid time' do
       post '/camp_minder_handler', fn: 'ClientLinkRequest', username: @username, password: @password, signedObject: @failure_signed_object, token: @token, clientID: @client_id, personID: @person_id
 
-      expect(last_response.status).to eq 304
+      expect(last_response.status).to eq 302
       expect(last_response.location).to eq "#{CampMinder::REDIRECTION_URL}?bpid=#{CampMinder::BUSINESS_PARTNER_ID}&success=false&reason=Invalid GetLinkRequest - signature was invalid!"
     end
 
@@ -61,7 +61,7 @@ describe 'CampMinderHandler' do
         post '/camp_minder_handler', fn: 'ClientLinkRequest', username: @username, password: @password, signedObject: @success_signed_object, token: @token, clientID: @client_id, personID: @person_id
       end
 
-      expect(last_response.status).to eq 304
+      expect(last_response.status).to eq 302
       expect(last_response.location).to eq "#{CampMinder::REDIRECTION_URL}?bpid=#{CampMinder::BUSINESS_PARTNER_ID}&success=false&reason=Unknown"
     end
 
@@ -70,7 +70,7 @@ describe 'CampMinderHandler' do
 
       post '/camp_minder_handler', fn: 'ClientLinkRequest', username: @username, password: @password, signedObject: @success_signed_object, token: @token, clientID: @client_id, personID: @person_id
 
-      expect(last_response.status).to eq 304
+      expect(last_response.status).to eq 302
       expect(last_response.location).to eq "#{CampMinder::REDIRECTION_URL}?bpid=#{CampMinder::BUSINESS_PARTNER_ID}&success=false&reason=invalid username and password"
     end
 
@@ -80,7 +80,7 @@ describe 'CampMinderHandler' do
 
       post '/camp_minder_handler', fn: 'ClientLinkRequest', username: @username, password: @password, signedObject: @success_signed_object, token: @token, clientID: @client_id, personID: @person_id
 
-      expect(last_response.status).to eq 304
+      expect(last_response.status).to eq 302
       expect(last_response.location).to eq "#{CampMinder::REDIRECTION_URL}?bpid=#{CampMinder::BUSINESS_PARTNER_ID}&success=false&reason=partner client id not found"
     end
 
@@ -93,7 +93,7 @@ describe 'CampMinderHandler' do
         post '/camp_minder_handler', fn: 'ClientLinkRequest', username: @username, password: @password, signedObject: @success_signed_object, token: @token, clientID: @client_id, personID: @person_id
       end
 
-      expect(last_response.status).to eq 304
+      expect(last_response.status).to eq 302
       expect(last_response.location).to eq "#{CampMinder::REDIRECTION_URL}?bpid=#{CampMinder::BUSINESS_PARTNER_ID}&success=false&reason=failed to save partner client"
     end
 
