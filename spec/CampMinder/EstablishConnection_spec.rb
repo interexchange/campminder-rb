@@ -77,40 +77,30 @@ describe CampMinder::EstablishConnection do
       }
     end
 
-    it 'sends a failed connection post request to CampMinder' do
-      stub_request(:post, CampMinder::WEB_SERVICE_URL).
-      with(body: @form_params).
-      to_return(body: %{<?xml version="1.0" encoding="UTF-8"?>
-<responseObject version="1">
-  <Success>False</Success>
-  <Reason>Unknown</Reason>
-</responseObject>
-})
-      expect(@establish_connection.connect).to be false
-      expect(@establish_connection.connection_failure_reason).to eq 'Unknown'
-    end
-
     it 'sends a successful connection post request to CampMinder' do
-      stub_request(:post, CampMinder::WEB_SERVICE_URL).
-      with(body: @form_params).
-      to_return(body: %{<?xml version="1.0" encoding="UTF-8"?>
-<responseObject version="1">
-  <Success>True</Success>
-</responseObject>
-})
-      expect(@establish_connection.connect).to be true
-      expect(@establish_connection.connection_failure_reason).to be nil
+      VCR.use_cassette 'EstablishConnectionSuccess', erb: true do
+        expect(@establish_connection.connect).to be true
+        expect(@establish_connection.connection_failure_details).to be nil
+      end
     end
 
     it 'uses a proxy url if CAMPMINDER_PROXY_URL is set' do
-      CampMinder::PROXY_URL = 'http://proxy.interexchange.io:3128'
+      CampMinder::PROXY_URL = 'http://proxy.example:3128'
       uri = URI.parse(CampMinder::WEB_SERVICE_URL)
       proxy_uri = URI.parse(CampMinder::PROXY_URL)
 
       expect(Net::HTTP).to receive(:new).with(uri.host, uri.port, proxy_uri.host, proxy_uri.port, proxy_uri.user, proxy_uri.password).and_call_original
 
-      VCR.use_cassette "EstablishConnectionProxySuccess", erb: true do
-        @establish_connection.connect
+      VCR.use_cassette 'EstablishConnectionProxySuccess', erb: true do
+        expect(@establish_connection.connect).to be true
+        expect(@establish_connection.connection_failure_details).to be nil
+      end
+    end
+
+    it 'sends a failed connection post request to CampMinder' do
+      VCR.use_cassette 'EstablishConnectionFailure', erb: true do
+        expect(@establish_connection.connect).to be false
+        expect(@establish_connection.connection_failure_details).to eq 'Unknown'
       end
     end
   end

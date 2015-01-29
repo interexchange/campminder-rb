@@ -13,6 +13,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '<?xml version="1.0" encoding="UTF-8"?>
 <responseObject version="1">
-  <status>True</status>
+  <status>False</status>
+  <details>Unknown</details>
 </responseObject>'
   recorded_at: Thu, 29 Jan 2015 17:31:43 GMT

@@ -10,8 +10,8 @@ http_interactions:
       encoding: UTF-8
       string: '<?xml version="1.0" encoding="UTF-8"?>
           <responseObject version="1">
-            <Success>False</Success>
-            <Reason>Unknown</Reason>
+            <status>False</status>
+            <details>Unknown</details>
           </responseObject>'
   recorded_at: Mon, 26 Jan 2015 19:44:51 GMT
 recorded_with: VCR 2.9.3
