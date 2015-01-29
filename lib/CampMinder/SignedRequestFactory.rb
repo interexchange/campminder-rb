@@ -21,11 +21,11 @@ class CampMinder::SignedRequestFactory
   end
 
   def encode_signature(encoded_payload)
-    prepare_encoded_base64(Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha256'), @secret_code, encoded_payload))).strip()
+    prepare_encoded_base64(Base64.strict_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha256'), @secret_code, encoded_payload))).strip()
   end
 
   def sign_payload(payload)
-    encoded_payload = prepare_encoded_base64(Base64.encode64(payload))
+    encoded_payload = prepare_encoded_base64(Base64.strict_encode64(payload))
     encoded_signature = encode_signature(encoded_payload)
     "#{encoded_signature}.#{encoded_payload}"
   end
