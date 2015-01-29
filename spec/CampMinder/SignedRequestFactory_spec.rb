@@ -27,7 +27,7 @@ describe CampMinder::SignedRequestFactory do
   describe '#is_valid_request?' do
     before do
       @payload = "Hello World"
-      @encoded_payload = Base64.strict_encode64(@payload)
+      @encoded_payload = Base64.urlsafe_encode64(@payload)
     end
 
     it 'returns true if payload signed with SECRET_CODE' do
@@ -47,43 +47,13 @@ describe CampMinder::SignedRequestFactory do
   describe '#get_payload' do
     before do
       @payload = "Hello World"
-      @encoded_payload = Base64.strict_encode64(@payload)
+      @encoded_payload = Base64.urlsafe_encode64(@payload)
       @encoded_signature = "ABC"
       @signed_payload = "#{@encoded_signature}.#{@encoded_payload}"
     end
 
     it 'decodes the last part of payload' do
       expect(@signed_request_factory.get_payload(@signed_payload)).to eq @payload
-    end
-  end
-
-  describe '#prepare_decode_base64' do
-    it 'pads to mod 4' do
-      expect(@signed_request_factory.prepare_decode_base64('AB')).to eq 'AB=='
-      expect(@signed_request_factory.prepare_decode_base64('ABCD')).to eq 'ABCD'
-      expect(@signed_request_factory.prepare_decode_base64('ABCDE')).to eq 'ABCDE==='
-    end
-
-    it 'replaces - with +' do
-      expect(@signed_request_factory.prepare_decode_base64('-+++')).to eq '++++'
-    end
-
-    it 'replaces _ with /' do
-      expect(@signed_request_factory.prepare_decode_base64('_///')).to eq '////'
-    end
-  end
-
-  describe '#prepare_encoded_base64' do
-    it 'removes =' do
-      expect(@signed_request_factory.prepare_encoded_base64('AB==')).to eq 'AB'
-    end
-
-    it 'replaces + with -' do
-      expect(@signed_request_factory.prepare_encoded_base64('-+++')).to eq '----'
-    end
-
-    it 'replaces / with _' do
-      expect(@signed_request_factory.prepare_encoded_base64('_///')).to eq '____'
     end
   end
 end
