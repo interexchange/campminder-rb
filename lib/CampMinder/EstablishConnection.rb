@@ -32,7 +32,7 @@ class CampMinder::EstablishConnection
 
     if CampMinder::PROXY_URL.present?
       proxy_uri = URI.parse(CampMinder::PROXY_URL)
-        http = Net::HTTP.new(uri.host, uri.port, proxy_uri.host, proxy_uri.port, proxy_uri.user, proxy_uri.password)
+      http = Net::HTTP.new(uri.host, uri.port, proxy_uri.host, proxy_uri.port, proxy_uri.user, proxy_uri.password)
     else
       http = Net::HTTP.new(uri.host, uri.port)
     end
