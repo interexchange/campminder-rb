@@ -9,13 +9,12 @@ describe CampMinder::EstablishConnection do
       'partnerClientID' => 'IEX-C-123'
     }
 
-    @payload = %{<?xml version="1.0" encoding="UTF-8"?>
-<responseObject>
+    @payload = %{<connectionRequest version="1">
   <clientID>#{@data['clientID']}</clientID>
   <personID>#{@data['personID']}</personID>
   <token>#{@data['token']}</token>
   <partnerClientID>#{@data['partnerClientID']}</partnerClientID>
-</responseObject>
+</connectionRequest>
 }
 
     @signed_request_factory = CampMinder::SignedRequestFactory.new(CampMinder::SECRET_CODE)
