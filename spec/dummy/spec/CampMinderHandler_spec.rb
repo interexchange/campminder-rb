@@ -142,8 +142,7 @@ describe "CampMinderHandler" do
       post "/camp_minder_handler", fn: "ServerTimeGet"
 
       expect(last_response.status).to eq 200
-      expect(last_response.body).to eq %{<?xml version="1.0" encoding="UTF-8"?>
-<responseObject>
+      expect(last_response.body).to eq %{<responseObject version="1">
   <status>True</status>
   <details>ServerTimeGet</details>
   <data>#{Time.now.utc.iso8601.to_s}</data>
