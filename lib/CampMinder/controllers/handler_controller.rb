@@ -1,9 +1,9 @@
 module CampMinder::HandlerController
   def create
     case params[:fn]
-    when 'ClientLinkRequest'
+    when "ClientLinkRequest"
       client_link_request
-    when 'ServerTimeGet'
+    when "ServerTimeGet"
       server_time_get
     end
   end
@@ -18,16 +18,16 @@ module CampMinder::HandlerController
 
     if success
       success = valid_username_password?(@client_link_request.username, @client_link_request.password)
-      reason = 'invalid username and password' unless success
+      reason = "invalid username and password" unless success
     end
 
     if success
       if partner_client_id != nil
         connection = CampMinder::EstablishConnection.new(
-          'clientID' => @client_link_request.client_id,
-          'personID' => @client_link_request.person_id,
-          'token' => @client_link_request.token,
-          'partnerClientID' => partner_client_id
+          "client_id" => @client_link_request.client_id,
+          "person_id" => @client_link_request.person_id,
+          "token" => @client_link_request.token,
+          "partner_client_id" => partner_client_id
         )
 
         if !connection.connect
@@ -36,7 +36,7 @@ module CampMinder::HandlerController
         end
       else
         success = false
-        reason = 'partner client id not found'
+        reason = "partner client id not found"
       end
     end
 
@@ -48,14 +48,14 @@ module CampMinder::HandlerController
         @client_link_request.token,
         true
       )
-      reason = 'failed to save partner client' unless success
+      reason = "failed to save partner client" unless success
     end
 
     redirect_to "#{CampMinder::REDIRECTION_URL}?bpid=#{CampMinder::BUSINESS_PARTNER_ID}&success=#{success}&reason=#{reason}"
   end
 
   def server_time_get
-    render xml: CampMinder::ServerTimeGet.new, root: 'responseObject'
+    render xml: CampMinder::ServerTimeGet.new, skip_instruct: true
   end
 
   def valid_username_password?(username, password)

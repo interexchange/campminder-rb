@@ -3,17 +3,17 @@ require 'spec_helper'
 describe CampMinder::EstablishConnection do
   before do
     @data = {
-      'clientID' => 'C-123',
-      'personID' => 'P-123',
+      'client_id' => 'C-123',
+      'person_id' => 'P-123',
       'token' => 'DEF-456',
-      'partnerClientID' => 'IEX-C-123'
+      'partner_client_id' => 'IEX-C-123'
     }
 
     @payload = %{<connectionRequest version="1">
-  <clientID>#{@data['clientID']}</clientID>
-  <personID>#{@data['personID']}</personID>
+  <clientID>#{@data['client_id']}</clientID>
+  <personID>#{@data['person_id']}</personID>
   <token>#{@data['token']}</token>
-  <partnerClientID>#{@data['partnerClientID']}</partnerClientID>
+  <partnerClientID>#{@data['partner_client_id']}</partnerClientID>
 </connectionRequest>
 }
 
@@ -30,24 +30,24 @@ describe CampMinder::EstablishConnection do
       expect(@establish_connection).not_to be nil
     end
 
-    it 'assigns the clientID attribute' do
-      expect(@establish_connection.clientID).to eq @data['clientID']
+    it 'assigns the client_id attribute' do
+      expect(@establish_connection.client_id).to eq @data['client_id']
     end
 
-    it 'assigns the personID attribute' do
-      expect(@establish_connection.personID).to eq @data['personID']
+    it 'assigns the person_id attribute' do
+      expect(@establish_connection.person_id).to eq @data['person_id']
     end
 
     it 'assigns the token attribute' do
       expect(@establish_connection.token).to eq @data['token']
     end
 
-    it 'assigns the partnerClientID attribute' do
-      expect(@establish_connection.partnerClientID).to eq @data['partnerClientID']
+    it 'assigns the partner_client_id attribute' do
+      expect(@establish_connection.partner_client_id).to eq @data['partner_client_id']
     end
 
     it 'raises an exception on missing attributes' do
-      data_without_clientid = @data.tap { |data| data.delete('clientID') }
+      data_without_clientid = @data.tap { |data| data.delete('client_id') }
 
       expect do
         CampMinder::EstablishConnection.new(data_without_clientid)

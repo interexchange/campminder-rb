@@ -4,16 +4,16 @@ require "net/http"
 class CampMinder::EstablishConnection
   include Virtus.model
 
-  attribute :clientID, String
-  attribute :personID, String
+  attribute :client_id, String
+  attribute :person_id, String
   attribute :token, String
-  attribute :partnerClientID, String
+  attribute :partner_client_id, String
 
   def initialize(data)
-    @clientID = data.fetch("clientID")
-    @personID = data.fetch("personID")
+    @client_id = data.fetch("client_id")
+    @person_id = data.fetch("person_id")
     @token = data.fetch("token")
-    @partnerClientID = data.fetch("partnerClientID")
+    @partner_client_id = data.fetch("partner_client_id")
   end
 
   def payload
@@ -38,7 +38,7 @@ class CampMinder::EstablishConnection
 
     http.use_ssl = true
     request = Net::HTTP::Post.new(uri.request_uri)
-    request.set_form_data({"fn" => "EstablishConnection", "businessPartnerID" => CampMinder::BUSINESS_PARTNER_ID, "signedObject" => signed_object})
+    request.set_form_data("fn" => "EstablishConnection", "businessPartnerID" => CampMinder::BUSINESS_PARTNER_ID, "signedObject" => signed_object)
     response = http.request(request)
 
     doc = Nokogiri.XML(response.body)
@@ -63,10 +63,10 @@ class CampMinder::EstablishConnection
     builder = options[:builder] ||= ::Builder::XmlMarkup.new(indent: options[:indent])
     builder.instruct! unless options[:skip_instruct]
     builder.connectionRequest(version: "1") do |b|
-      b.clientID @clientID
-      b.personID @personID
+      b.clientID @client_id
+      b.personID @person_id
       b.token @token
-      b.partnerClientID @partnerClientID
+      b.partnerClientID @partner_client_id
     end
   end
 end
