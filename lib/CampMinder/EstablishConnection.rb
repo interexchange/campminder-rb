@@ -58,7 +58,6 @@ class CampMinder::EstablishConnection
   end
 
   def to_xml(options = {})
-    require "builder"
     options[:indent] ||= 2
     builder = options[:builder] ||= ::Builder::XmlMarkup.new(indent: options[:indent])
     builder.instruct! unless options[:skip_instruct]
