@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe CampMinder::Base64 do
   describe ".urlsafe_encode64" do
@@ -8,7 +8,7 @@ describe CampMinder::Base64 do
     end
   end
 
-  describe '.urlsafe_decode64' do
+  describe ".urlsafe_decode64" do
     it "decodes the base64 payload" do
       expect(Base64).to receive(:urlsafe_decode64).with("l===")
       CampMinder::Base64.urlsafe_decode64("l")

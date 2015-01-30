@@ -17,7 +17,7 @@ class CampMinder::SignedRequestFactory
   end
 
   def encode_signature(encoded_payload)
-    CampMinder::Base64.urlsafe_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new("sha256"), @secret_code, encoded_payload)).strip()
+    CampMinder::Base64.urlsafe_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new("sha256"), @secret_code, encoded_payload)).strip
   end
 
   def sign_payload(payload)
