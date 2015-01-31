@@ -40,10 +40,63 @@ outgoing requests.
 A URL on CampMinder’s system to which you will redirect control as
 the last step of the Connection Establishment procedure.
 
+`CAMPMINDER_PROXY_URL`:
+Optional. If set, any communications with CampMinder's system will
+be sent through a proxy.
+
 For local gem testing there is a `.env` file in this respository with
 sample settings.
 
 ## Usage
+
+Set up the route to your CampMinder endpoint in `config/routes.rb`
+
+```
+post "camp_minder_handler", to: "camp_minder_handler#create"
+```
+
+Set up your `app/controllers/camp_minder_handler_controller.rb`
+
+```
+class CampMinderHandlerController < ActionController::Base
+  include ::CampMinder::HandlerController
+end
+```
+
+For the `ClientLinkRequest`, your controller will need to implement three methods.
+
+`valid_username_password?` takes username and password as parameters and should
+return true or false depending on whether or not the user exists in your application.
+
+```
+def valid_username_password?(username, password)
+  @user = ::User.find_by_email(username)
+  @user.present? && @user.valid_password?(password)
+end
+```
+
+`partner_client_id` should return your application's ID for the user's employer.
+
+```
+def partner_client_id
+  @user.employer.id
+end
+```
+
+`store_partner_client` takes partner_client_id, , client_id, person_id, token, and connection_status
+as arguments, and should store these in some form in your database. Returns true on success.
+
+```
+def store_partner_client(partner_client_id, client_id, person_id, token, connection_status)
+  CampMinderPartnerClientConnection.create(
+    partner_client_id: partner_client_id,
+    client_id: client_id,
+    person_id: person_id,
+    token: token,
+    connection_status: connection_status
+  ).valid?
+end
+```
 
 ### ClientLinkRequest
 
