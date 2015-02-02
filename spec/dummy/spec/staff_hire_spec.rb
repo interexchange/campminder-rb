@@ -53,7 +53,9 @@ describe "StaffHire" do
     it "makes a StaffHire request to CampMinder" do
       allow_any_instance_of(DummyCampMinderStaffHireController).to receive(:store_staff_hire).and_return(true)
 
-      post "/camp_minder_staff_hire", @data
+      VCR.use_cassette "StaffHireSuccess", erb: true do
+        post "/camp_minder_staff_hire", @data
+      end
     end
 
     it "responds with success" do

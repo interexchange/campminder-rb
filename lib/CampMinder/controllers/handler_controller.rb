@@ -32,7 +32,7 @@ module CampMinder::HandlerController
 
         if !connection.post
           success = false
-          reason = connection.connection_failure_details
+          reason = connection.failure_details
         end
       else
         success = false

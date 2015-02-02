@@ -3,9 +3,9 @@ require "spec_helper"
 describe "StaffHire" do
   before do
     @data = {
-      "client_id" => "CID-1",
-      "token" => "TOKENLOL",
-      "partner_client_id" => "PCID-1",
+      "client_id" => "153",
+      "token" => "f2e8602d-a9fe-4da3-b817-c8264751a829",
+      "partner_client_id" => "6375",
       "unique_key" => "1",
       "first_name" => "draco",
       "middle_initial" => "",
@@ -153,6 +153,24 @@ describe "StaffHire" do
   end
 
   describe "#post" do
+    it "sends a successful StaffHire request to CampMinder" do
+      VCR.use_cassette "StaffHireSuccess", erb: true do
+        expect(@staff_hire.post).to be true
+        expect(@staff_hire.failure_details).to be nil
+      end
+    end
 
+    it "uses a proxy url if CAMPMINDER_PROXY_URL is set" do
+      CampMinder::PROXY_URL = "http://proxy.example:3128"
+      uri = URI.parse(CampMinder::WEB_SERVICE_URL)
+      proxy_uri = URI.parse(CampMinder::PROXY_URL)
+
+      expect(Net::HTTP).to receive(:new).with(uri.host, uri.port, proxy_uri.host, proxy_uri.port, proxy_uri.user, proxy_uri.password).and_call_original
+
+      VCR.use_cassette "StaffHireProxySuccess", erb: true do
+        expect(@staff_hire.post).to be true
+        expect(@staff_hire.failure_details).to be nil
+      end
+    end
   end
 end

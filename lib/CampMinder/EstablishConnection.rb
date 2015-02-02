@@ -9,6 +9,8 @@ class CampMinder::EstablishConnection
   attribute :token, String
   attribute :partner_client_id, String
 
+  attribute :failure_details, String
+
   def initialize(data)
     @client_id = data.fetch("client_id")
     @person_id = data.fetch("person_id")
@@ -51,10 +53,6 @@ class CampMinder::EstablishConnection
       @failure_details = doc.at_xpath("//details").content
       false
     end
-  end
-
-  def connection_failure_details
-    @failure_details
   end
 
   def to_xml(options = {})

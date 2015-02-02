@@ -68,18 +68,10 @@ describe CampMinder::EstablishConnection do
   end
 
   describe "#post" do
-    before do
-      @form_params = {
-        "fn" => "EstablishConnection",
-        "businessPartnerID" => CampMinder::BUSINESS_PARTNER_ID,
-        "signedObject" => @signed_payload
-      }
-    end
-
-    it "sends a successful connection post request to CampMinder" do
+    it "sends a successful EstablishConnection request to CampMinder" do
       VCR.use_cassette "EstablishConnectionSuccess", erb: true do
         expect(@establish_connection.post).to be true
-        expect(@establish_connection.connection_failure_details).to be nil
+        expect(@establish_connection.failure_details).to be nil
       end
     end
 
@@ -92,14 +84,14 @@ describe CampMinder::EstablishConnection do
 
       VCR.use_cassette "EstablishConnectionProxySuccess", erb: true do
         expect(@establish_connection.post).to be true
-        expect(@establish_connection.connection_failure_details).to be nil
+        expect(@establish_connection.failure_details).to be nil
       end
     end
 
     it "sends a failed connection post request to CampMinder" do
       VCR.use_cassette "EstablishConnectionFailure", erb: true do
         expect(@establish_connection.post).to be false
-        expect(@establish_connection.connection_failure_details).to eq "Unknown"
+        expect(@establish_connection.failure_details).to eq "Unknown"
       end
     end
   end
