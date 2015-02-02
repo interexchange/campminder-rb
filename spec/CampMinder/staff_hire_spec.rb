@@ -110,6 +110,11 @@ describe "StaffHire" do
 </staffDataContainer>
 }
 
+    @signed_request_factory = CampMinder::SignedRequestFactory.new(CampMinder::SECRET_CODE)
+    @encoded_payload = CampMinder::Base64.urlsafe_encode64(@payload)
+    @encoded_signature = @signed_request_factory.encode_signature(@encoded_payload)
+    @signed_object = "#{@encoded_signature}.#{@encoded_payload}"
+
     @staff_hire = CampMinder::StaffHire.new(@data)
   end
 
@@ -141,7 +146,11 @@ describe "StaffHire" do
     end
   end
 
-  describe "#signed_object"
+  describe "#signed_object" do
+    it "signs the staff data" do
+      expect(@staff_hire.signed_object).to eq @signed_object
+    end
+  end
 
   describe "#post" do
 

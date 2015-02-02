@@ -101,6 +101,11 @@ class CampMinder::StaffHire
     to_xml(skip_instruct: true)
   end
 
+  def signed_object
+    signed_request_factory = CampMinder::SignedRequestFactory.new(CampMinder::SECRET_CODE)
+    signed_request_factory.sign_payload(payload)
+  end
+
   def post
     true
   end
