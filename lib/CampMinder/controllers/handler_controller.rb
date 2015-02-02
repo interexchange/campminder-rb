@@ -30,9 +30,9 @@ module CampMinder::HandlerController
           "partner_client_id" => partner_client_id
         )
 
-        if !connection.connect
+        if !connection.post
           success = false
-          reason = connection.connection_failure_details
+          reason = connection.failure_details
         end
       else
         success = false
