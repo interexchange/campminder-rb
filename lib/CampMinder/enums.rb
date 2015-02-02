@@ -11,5 +11,7 @@ module CampMinder::Enums
   module Gender
     FEMALE = 0
     MALE = 1
+    COED = 2
+    UNDEFINED = 3
   end
 end
