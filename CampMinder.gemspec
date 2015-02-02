@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec-mocks', '~> 3.1'
   spec.add_development_dependency 'dotenv', '~> 1.0'
   spec.add_development_dependency 'codeclimate-test-reporter', '~> 0.4'
+  spec.add_development_dependency 'pry', '~> 0.10'
   spec.add_development_dependency 'rack-test', '~> 0.6'
   spec.add_development_dependency 'rails', '~> 4.2'
   spec.add_development_dependency 'sqlite3', '~> 1.3'

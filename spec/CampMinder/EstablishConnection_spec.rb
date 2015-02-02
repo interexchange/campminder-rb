@@ -20,7 +20,7 @@ describe CampMinder::EstablishConnection do
     @signed_request_factory = CampMinder::SignedRequestFactory.new(CampMinder::SECRET_CODE)
     @encoded_payload = CampMinder::Base64.urlsafe_encode64(@payload)
     @encoded_signature = @signed_request_factory.encode_signature(@encoded_payload)
-    @signed_payload = "#{@encoded_signature}.#{@encoded_payload}"
+    @signed_object = "#{@encoded_signature}.#{@encoded_payload}"
 
     @establish_connection = CampMinder::EstablishConnection.new(@data)
   end
@@ -63,11 +63,11 @@ describe CampMinder::EstablishConnection do
 
   describe "#signed_object" do
     it "signs the connection request" do
-      expect(@establish_connection.signed_object).to eq @signed_payload
+      expect(@establish_connection.signed_object).to eq @signed_object
     end
   end
 
-  describe "#connect" do
+  describe "#post" do
     before do
       @form_params = {
         "fn" => "EstablishConnection",
@@ -78,7 +78,7 @@ describe CampMinder::EstablishConnection do
 
     it "sends a successful connection post request to CampMinder" do
       VCR.use_cassette "EstablishConnectionSuccess", erb: true do
-        expect(@establish_connection.connect).to be true
+        expect(@establish_connection.post).to be true
         expect(@establish_connection.connection_failure_details).to be nil
       end
     end
@@ -91,14 +91,14 @@ describe CampMinder::EstablishConnection do
       expect(Net::HTTP).to receive(:new).with(uri.host, uri.port, proxy_uri.host, proxy_uri.port, proxy_uri.user, proxy_uri.password).and_call_original
 
       VCR.use_cassette "EstablishConnectionProxySuccess", erb: true do
-        expect(@establish_connection.connect).to be true
+        expect(@establish_connection.post).to be true
         expect(@establish_connection.connection_failure_details).to be nil
       end
     end
 
     it "sends a failed connection post request to CampMinder" do
       VCR.use_cassette "EstablishConnectionFailure", erb: true do
-        expect(@establish_connection.connect).to be false
+        expect(@establish_connection.post).to be false
         expect(@establish_connection.connection_failure_details).to eq "Unknown"
       end
     end

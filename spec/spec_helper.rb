@@ -6,10 +6,11 @@ Dotenv.load
 require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 
+require 'pry'
 require 'rack/test'
 require 'timecop'
-require 'webmock/rspec'
 require 'vcr'
+require 'webmock/rspec'
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'CampMinder'

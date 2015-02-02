@@ -25,7 +25,7 @@ class CampMinder::EstablishConnection
     signed_request_factory.sign_payload(payload)
   end
 
-  def connect
+  def post
     uri = URI.parse(CampMinder::WEB_SERVICE_URL)
     http = nil
 
