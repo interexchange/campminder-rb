@@ -75,6 +75,8 @@ class CampMinder::StaffHire
   attribute :musical_instruments, String
 
   attribute :failure_details, String
+  attribute :payload, String
+  attribute :signed_object, String
 
   def initialize(args)
     super(args)
@@ -100,12 +102,12 @@ class CampMinder::StaffHire
   end
 
   def payload
-    to_xml(skip_instruct: true)
+    @payload = to_xml(skip_instruct: true)
   end
 
   def signed_object
     signed_request_factory = CampMinder::SignedRequestFactory.new(CampMinder::SECRET_CODE)
-    signed_request_factory.sign_payload(payload)
+    @signed_object = signed_request_factory.sign_payload(payload)
   end
 
   def post
