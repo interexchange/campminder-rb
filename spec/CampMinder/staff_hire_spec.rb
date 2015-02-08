@@ -26,7 +26,7 @@ describe "StaffHire" do
       "employment_start_date" => "2015-06-15",
       "employment_end_date" => "2015-08-15",
       "marital_status" => "4",
-      "base_salary" => "1,500",
+      "base_salary" => "1500",
       "agency_fee" => "400",
       "smoking" => "true",
       "foreign_languages" => "mandarin, australian"
