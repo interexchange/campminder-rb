@@ -217,10 +217,18 @@ describe "StaffHire" do
   end
 
   describe "#payload" do
+    context "with base_salary blank" do
+      before { @data.tap { |hash| hash["base_salary"] = "" } }
+
+      it "generates an xml payload without salary" do
+        expect(staff_hire.payload).to eq @payload_without_salary
+      end
+    end
+
     context "with base_salary not populated" do
       before { @data.tap { |hash| hash.delete("base_salary") } }
 
-      it "generates an xml payload" do
+      it "generates an xml payload without salary" do
         expect(staff_hire.payload).to eq @payload_without_salary
       end
     end
