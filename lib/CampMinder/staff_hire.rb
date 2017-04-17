@@ -194,7 +194,7 @@ class CampMinder::StaffHire
           bi.extracurricularActivities @extracurricular_activities
           bi.career @career
           bi.maritalStatus @marital_status
-          bi.baseSalary @base_salary
+          bi.baseSalary @base_salary if @base_salary.present?
           bi.agencyFee @agency_fee
           bi.specialTerms @special_terms
           bi.arrestRecord @arrest_record

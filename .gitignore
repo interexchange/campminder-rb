@@ -5,7 +5,8 @@ docs/campminder
 coverage
 
 # Ignore bundler config.
-/spec/dummy/.bundle
+.bundle
+/vendor
 
 # Ignore the default SQLite database.
 /spec/dummy/db/*.sqlite3
