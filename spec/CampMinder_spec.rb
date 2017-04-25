@@ -31,7 +31,6 @@ describe CampMinder do
 
     context "logger has been set" do
       before { CampMinder.logger = logger }
-      after { CampMinder.logger = nil }
 
       it "sent the message to the logger" do
         subject
