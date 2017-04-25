@@ -47,6 +47,16 @@ be sent through a proxy.
 For local gem testing there is a `.env` file in this respository with
 sample settings.
 
+### Logging
+
+To enable logging is as simple as setting the logger on CampMinder:
+
+```
+CampMinder.logger = Rails.logger
+```
+
+An initializer is a good place to do this when using the gem in a Rails project.
+
 ## Usage
 
 Set up the route to your CampMinder endpoint in `config/routes.rb`
