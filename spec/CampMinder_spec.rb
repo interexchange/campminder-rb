@@ -20,4 +20,31 @@ describe CampMinder do
   it 'has a Redirection URL' do
     expect(CampMinder::REDIRECTION_URL).not_to be nil
   end
+
+  describe ".log" do
+    subject { CampMinder.log(message) }
+
+    let(:logger) { double }
+    let(:message) { "test" }
+
+    before { allow(logger).to receive(:info) }
+
+    context "logger has been set" do
+      before { CampMinder.logger = logger }
+
+      it "sent the message to the logger" do
+        subject
+        expect(logger).to have_received(:info).with(message)
+      end
+    end
+
+    context "logger has not been set" do
+      before { CampMinder.remove_class_variable("@@logger") }
+
+      it "didn't send the message to the logger" do
+        subject
+        expect(logger).not_to have_received(:info).with(message)
+      end
+    end
+  end
 end
