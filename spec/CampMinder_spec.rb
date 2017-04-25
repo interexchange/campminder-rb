@@ -40,6 +40,8 @@ describe CampMinder do
     end
 
     context "logger has not been set" do
+      before { CampMinder.remove_class_variable("@@logger") }
+
       it "didn't send the message to the logger" do
         subject
         expect(logger).not_to have_received(:info).with(message)

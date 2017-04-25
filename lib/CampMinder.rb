@@ -6,10 +6,15 @@ module CampMinder
   def self.logger=(logger)
     @@logger = logger
   end
-  def self.log(content)
-    if @@logger
-      @@logger.info content
+
+  def self.logger
+    if defined?(@@logger)
+      @@logger
     end
+  end
+
+  def self.log(content)
+    logger&.info content
   end
 end
 
