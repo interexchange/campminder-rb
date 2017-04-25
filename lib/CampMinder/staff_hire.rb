@@ -121,6 +121,13 @@ class CampMinder::StaffHire
       http = Net::HTTP.new(uri.host, uri.port)
     end
 
+    CampMinder.log "*" * 80
+    CampMinder.log "CAMPMINDER LOGGING START"
+    CampMinder.log "StaffHire sending:"
+    CampMinder.log payload
+    CampMinder.log "CAMPMINDER LOGGING END"
+    CampMinder.log "*" * 80
+
     http.use_ssl = true
     request = Net::HTTP::Post.new(uri.request_uri)
     request.set_form_data("fn" => "StaffHire", "businessPartnerID" => CampMinder::BUSINESS_PARTNER_ID, "signedObject" => signed_object)
