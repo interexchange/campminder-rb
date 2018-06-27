@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "CampMinder"
   spec.version       = CampMinder::VERSION
   spec.authors       = ["Dirk Kelly", "Nathan Harper", "Aaron Todd"]
-  spec.email         = ["iex-eng+dirkkelly@googlegroups.com", "iex-eng+nathanharper@googlegroups.com", "atodd@interexchange.org"]
+  spec.email         = ["dkelly@interexchange.org", "engineering+nharper@interexchange.org", "atodd@interexchange.org"]
   spec.summary       = "Interface for CampMinder ClientLink API."
   spec.homepage      = "https://github.com/interexchange/campminder-rb"
   spec.license       = "MIT"
