@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "webmock", "~> 1.2"
 
   spec.add_dependency "active_model_serializers", "= 0.9.2"
-  spec.add_dependency "loofah", "~> 2.2.1" # for security - https://github.com/flavorjones/loofah/issues/144
+  spec.add_dependency "loofah", "~> 2.2.3" # for security - https://github.com/flavorjones/loofah/issues/154
   spec.add_dependency "nokogiri", "~> 1.6"
   spec.add_dependency "sprockets", "~> 3.7.2" # for security - https://blog.heroku.com/rails-asset-pipeline-vulnerability
   spec.add_dependency "virtus", "~> 1.0"
