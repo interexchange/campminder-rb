@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry", "~> 0.10"
   spec.add_development_dependency "rack-test", "~> 0.6"
   spec.add_development_dependency "rails", "~> 4.2"
+  spec.add_development_dependency "activejob", "~> 4.2.11" # https://nvd.nist.gov/vuln/detail/CVE-2018-16476
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.1"
   spec.add_development_dependency "rspec-mocks", "~> 3.1"
