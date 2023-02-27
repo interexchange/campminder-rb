@@ -3,7 +3,6 @@ ENV["RACK_ENV"] ||= "test"
 require "dotenv"
 Dotenv.load
 
-require "pry"
 require "rack/test"
 require "timecop"
 require "vcr"
