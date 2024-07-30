@@ -51,7 +51,8 @@ module CampMinder::HandlerController
       reason = "failed to save partner client" unless success
     end
 
-    redirect_to "#{CampMinder::REDIRECTION_URL}?bpid=#{CampMinder::BUSINESS_PARTNER_ID}&success=#{success}&reason=#{reason}"
+    campminder_redirect_url = "#{ CampMinder::REDIRECTION_URL }?bpid=#{ CampMinder::BUSINESS_PARTNER_ID }&success=#{ success }&reason=#{ reason }"
+    redirect_to(campminder_redirect_url, allow_other_host: true)
   end
 
   def server_time_get

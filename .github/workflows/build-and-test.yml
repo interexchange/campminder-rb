@@ -1,0 +1,19 @@
+on:
+  - push
+
+jobs:
+  test:
+    runs-on: ubicloud
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Ruby 3.3.0
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.0
+      
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Run tests
+        run: bundle exec rspec
