@@ -18,6 +18,8 @@ require File.expand_path("../dummy/config/environment", __FILE__)
 
 Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each {|f| require f }
 
+Rails.application.config.action_dispatch.show_exceptions = :none
+
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
   config.ignore_localhost = true

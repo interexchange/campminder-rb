@@ -19,21 +19,21 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler"
-  spec.add_development_dependency "dotenv", "~> 1.0"
+  spec.add_development_dependency "dotenv"
   spec.add_development_dependency "rack-test"
-  spec.add_development_dependency "rails", "6.0.3.7"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.1"
+  spec.add_development_dependency "rails", ">= 7"
+  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rexml" # Required since Ruby 3
+  spec.add_development_dependency "rspec"
   spec.add_development_dependency "rspec_junit_formatter"
-  spec.add_development_dependency "rspec-mocks", "~> 3.1"
-  spec.add_development_dependency "sqlite3", "~> 1.3"
-  spec.add_development_dependency "timecop", "~> 0.7"
+  spec.add_development_dependency "rspec-mocks"
+  spec.add_development_dependency "sqlite3", "~> 1.3" # Required for resolution
+  spec.add_development_dependency "timecop"
   spec.add_development_dependency "vcr"
   spec.add_development_dependency "webmock"
 
-  spec.add_dependency "active_model_serializers", "= 0.9.2"
-  spec.add_dependency "loofah", "~> 2.3"
-  spec.add_dependency "nokogiri", "~> 1.6"
-  spec.add_dependency "sprockets", "~> 3.7.2" # for security - https://blog.heroku.com/rails-asset-pipeline-vulnerability
-  spec.add_dependency "virtus", "~> 1.0"
+  spec.add_dependency "active_model_serializers"
+  spec.add_dependency "loofah"
+  spec.add_dependency "nokogiri"
+  spec.add_dependency "virtus"
 end
